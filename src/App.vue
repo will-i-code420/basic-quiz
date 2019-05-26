@@ -3,7 +3,7 @@
     <Header />
     <b-container class="bv-example-row">
       <b-row>
-        <b-col sm="6">
+        <b-col sm="6" offset="3">
           <QuestionBox />
         </b-col>
       </b-row>
