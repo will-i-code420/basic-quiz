@@ -16,3 +16,11 @@
     </b-jumbotron>
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    currentQuestion: Object
+  }
+}
+</script>
