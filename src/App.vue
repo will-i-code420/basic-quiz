@@ -35,7 +35,7 @@ export default {
       return response.json()
     })
     .then ((jsonData) => {
-      this.questions = jsonData.result
+      this.questions = jsonData.results
     })
   }
 }
