@@ -10,7 +10,6 @@
         </b-col>
       </b-row>
     </b-container>
-
   </div>
 </template>
 
@@ -28,6 +27,11 @@ export default {
     return {
       questions: [],
       index: 0
+    }
+  },
+  methods: {
+    next() {
+      return this.index++
     }
   },
   mounted: function() {
