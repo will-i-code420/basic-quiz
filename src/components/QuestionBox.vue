@@ -7,8 +7,8 @@
 
       <hr class="my-4">
 
-      <p v-for="answer in answers" :key="answer">
-
+      <p v-for="(answer, index) in answers" :key="index">
+        {{ answer }}
       </p>
 
       <b-button variant="primary" href="#">Submit</b-button>
