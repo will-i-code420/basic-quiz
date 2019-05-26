@@ -12,7 +12,7 @@
       </p>
 
       <b-button variant="primary" href="#">Submit</b-button>
-      <b-button v-on:click="next" variant="success" href="#">Next Question</b-button>
+      <b-button @click="next" variant="success" href="#">Next Question</b-button>
     </b-jumbotron>
   </div>
 </template>
