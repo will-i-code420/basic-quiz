@@ -25,11 +25,13 @@ import _ from 'lodash'
 export default {
   props: {
     currentQuestion: Object,
-    next: Function
+    next: Function,
+    increment: Function
   },
   data() {
     return {
       selectedIndex: null,
+      correctIndex: null,
       shuffleAnswers: []
     }
   },
@@ -43,6 +45,8 @@ export default {
       if (this.selectedIndex === this.correctIndex) {
         isCorrect = true
       }
+
+      this.increment(isCorrect)
     },
     shuffleAnswers() {
       let answers = [...this.currentQuestion.incorrect_answers, this.currentQuestion.correct_answer]
