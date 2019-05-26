@@ -8,7 +8,7 @@
       <hr class="my-4">
 
       <b-list-group>
-        <b-list-group-item v-for="(answer, index) in answers" :key="index">
+        <b-list-group-item v-for="(answer, index) in answers" :key="index" @click=selectAnswer(index)>
           {{ answer }}
         </b-list-group-item>
       </b-list-group>
@@ -24,6 +24,16 @@ export default {
   props: {
     currentQuestion: Object,
     next: Function
+  },
+  data() {
+    return {
+      selectedIndex = null
+    }
+  },
+  methods: {
+    selectAnswer() {
+      this.selectedIndex = index
+    }
   },
   computed: {
     answers() {
