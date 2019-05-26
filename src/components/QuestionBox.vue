@@ -13,7 +13,7 @@
         </b-list-group-item>
       </b-list-group>
 
-      <b-button variant="primary" @click="submitAnswer">Submit</b-button>
+      <b-button variant="primary" @click="submitAnswer" :disabled="selectedIndex === null || answered">Submit</b-button>
       <b-button @click="next" variant="success">Next Question</b-button>
     </b-jumbotron>
   </div>
@@ -32,7 +32,8 @@ export default {
     return {
       selectedIndex: null,
       correctIndex: null,
-      shuffleAnswers: []
+      shuffleAnswers: [],
+      answered: false
     }
   },
   methods: {
@@ -45,7 +46,7 @@ export default {
       if (this.selectedIndex === this.correctIndex) {
         isCorrect = true
       }
-
+      this.answered = true
       this.increment(isCorrect)
     },
     shuffleAnswers() {
@@ -66,6 +67,7 @@ export default {
       immediate: true,
       handler () {
       this.selectedIndex = null
+      this.answered = false
       this.shuffleAnswers()
       }
     }
