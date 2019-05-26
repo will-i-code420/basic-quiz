@@ -64,8 +64,8 @@ export default {
       } else if (this.answered && this.selectedIndex === index && this.correctIndex !== index) {
         answerClass = "incorrect"
       }
+      return answerClass
     }
-    return answerClass
   },
   computed: {
     answers() {
