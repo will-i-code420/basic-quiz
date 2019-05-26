@@ -3,7 +3,9 @@
     <Header />
     <b-container class="bv-example-row">
       <b-row>
-        <QuestionBox />
+        <b-col sm="6">
+          <QuestionBox />
+        </b-col>
       </b-row>
     </b-container>
 
