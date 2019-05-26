@@ -5,7 +5,7 @@
       <b-row>
         <b-col sm="6" offset="3">
           <QuestionBox
-            :question="questions[index]"
+            :currentQuestion="questions[index]"
           />
         </b-col>
       </b-row>
