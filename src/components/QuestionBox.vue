@@ -8,7 +8,7 @@
       <hr class="my-4">
 
       <b-list-group>
-        <b-list-group-item v-for="(answer, index) in answers" :key="index" @click=selectAnswer(index) :class="[selectedIndex === index ? "selected" : ""]">
+        <b-list-group-item v-for="(answer, index) in answers" :key="index" @click=selectAnswer(index) :class="[!answered && selectedIndex === index ? "selected" : answered && correctIndex === index ? "correct" : answered && selectedIndex === index && correctIndex !== index ? "incorrect" : ""]">
           {{ answer }}
         </b-list-group-item>
       </b-list-group>
