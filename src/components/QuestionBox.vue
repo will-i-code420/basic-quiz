@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import _ from 'lodash'
+
 export default {
   props: {
     currentQuestion: Object,
@@ -27,12 +29,17 @@ export default {
   },
   data() {
     return {
-      selectedIndex = null
+      selectedIndex: null,
+      shuffleAnswers: []
     }
   },
   methods: {
     selectAnswer() {
       this.selectedIndex = index
+    },
+    shuffleAnswers() {
+      let answers = [...this.currentQuestion.incorrect_answers, this.currentQuestion.correct_answer]
+      this.shuffleAnswers = _.shuffle(answers)
     }
   },
   computed: {
@@ -40,6 +47,12 @@ export default {
       let answers = [...this.currentQuestion.incorrect_answers]
       answers.push(this.currentQuestion.correct_answer)
       return answers
+    }
+  },
+  watch: {
+    currentQuestion() {
+      this.selectedIndex = null
+      this.shuffleAnswers()
     }
   }
 }
