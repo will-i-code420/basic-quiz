@@ -34,3 +34,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .list-group {
+    margin-bottom: 15px;
+  }
+  .btn {
+    margin: 0 5px;
+  }
+</style>
