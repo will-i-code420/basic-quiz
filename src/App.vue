@@ -5,7 +5,7 @@
       <b-row>
         <b-col sm="6" offset="3">
           <QuestionBox
-            v-bind:question="questions[index]"
+            :question="questions[index]"
           />
         </b-col>
       </b-row>
