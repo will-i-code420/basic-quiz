@@ -26,7 +26,8 @@ export default {
   computed: {
     answers() {
       let answers = [...this.currentQuestion.incorrect_answers]
-      return answers.push(this.currentQuestion.correct_answer)
+      answers.push(this.currentQuestion.correct_answer)
+      return answers
     }
   }
 }
