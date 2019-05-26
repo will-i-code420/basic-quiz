@@ -13,8 +13,8 @@
         </b-list-group-item>
       </b-list-group>
 
-      <b-button variant="primary" href="#">Submit</b-button>
-      <b-button @click="next" variant="success" href="#">Next Question</b-button>
+      <b-button variant="primary" @click="submitAnswer">Submit</b-button>
+      <b-button @click="next" variant="success">Next Question</b-button>
     </b-jumbotron>
   </div>
 </template>
@@ -37,9 +37,17 @@ export default {
     selectAnswer() {
       this.selectedIndex = index
     },
+    submitAnswer() {
+      let isCorrect = false
+
+      if (this.selectedIndex === this.correctIndex) {
+        isCorrect = true
+      }
+    },
     shuffleAnswers() {
       let answers = [...this.currentQuestion.incorrect_answers, this.currentQuestion.correct_answer]
       this.shuffleAnswers = _.shuffle(answers)
+      this.correctIndex = this.shuffleAnswers.indexOf(this.currentQuestion.correct_answer)
     }
   },
   computed: {
