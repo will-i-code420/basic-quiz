@@ -50,9 +50,12 @@ export default {
     }
   },
   watch: {
-    currentQuestion() {
+    currentQuestion: {
+      immediate: true,
+      handler () {
       this.selectedIndex = null
       this.shuffleAnswers()
+      }
     }
   }
 }
