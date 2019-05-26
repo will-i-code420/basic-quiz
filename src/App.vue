@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <Header />
+    <Header
+    :numCorrect="numCorrect"
+    :numTotal="numTotal"
+    />
     <b-container class="bv-example-row">
       <b-row>
         <b-col sm="6" offset="3">
