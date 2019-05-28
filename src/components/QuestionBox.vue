@@ -8,7 +8,7 @@
       <hr class="my-4">
 
       <b-list-group>
-        <b-list-group-item v-for="(answer, index) in answers" :key="index" @click=selectAnswer(index) :class="answerClass(index)">
+        <b-list-group-item v-for="(answer, index) in answers" :key="index" @click="selectAnswer(index)" :class="answerClass(index)">
           {{ answer }}
         </b-list-group-item>
       </b-list-group>
@@ -32,12 +32,36 @@ export default {
     return {
       selectedIndex: null,
       correctIndex: null,
-      shuffleAnswers: [],
+      shuffledAnswers: [],
       answered: false
     }
   },
+  computed: {
+    answers() {
+      let answers = [...this.currentQuestion.incorrect_answers]
+      answers.push(this.currentQuestion.correct_answer)
+      answers = _.shuffle(answers)
+      return answers
+    }
+  },
+  watch: {
+    currentQuestion: {
+      immediate: true,
+      handler() {
+      this.selectedIndex = null
+      this.answered = false
+      }
+    },
+    answers: {
+      immediate: true,
+      handler(correctAnswer) {
+        this.shuffledAnswers = correctAnswer
+        this.correctIndex = this.shuffledAnswers.indexOf(this.currentQuestion.correct_answer)
+      }
+    }
+  },
   methods: {
-    selectAnswer() {
+    selectAnswer(index) {
       this.selectedIndex = index
     },
     submitAnswer() {
@@ -48,11 +72,6 @@ export default {
       }
       this.answered = true
       this.increment(isCorrect)
-    },
-    shuffleAnswers() {
-      let answers = [...this.currentQuestion.incorrect_answers, this.currentQuestion.correct_answer]
-      this.shuffleAnswers = _.shuffle(answers)
-      this.correctIndex = this.shuffleAnswers.indexOf(this.currentQuestion.correct_answer)
     },
     answerClass(index) {
       let answerClass = ''
@@ -65,23 +84,6 @@ export default {
         answerClass = "incorrect"
       }
       return answerClass
-    }
-  },
-  computed: {
-    answers() {
-      let answers = [...this.currentQuestion.incorrect_answers]
-      answers.push(this.currentQuestion.correct_answer)
-      return answers
-    }
-  },
-  watch: {
-    currentQuestion: {
-      immediate: true,
-      handler () {
-      this.selectedIndex = null
-      this.answered = false
-      this.shuffleAnswers()
-      }
     }
   }
 }
