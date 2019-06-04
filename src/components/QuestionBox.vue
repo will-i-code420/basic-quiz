@@ -1,5 +1,5 @@
 <template>
-  <div class="question-box-container">
+  <div class="questionBox-container">
     <b-jumbotron>
       <template slot="lead">
         {{ currentQuestion.question }}
@@ -26,7 +26,8 @@ export default {
   props: {
     currentQuestion: Object,
     next: Function,
-    increment: Function
+    increment: Function,
+    score: Function
   },
   data() {
     return {
@@ -72,6 +73,7 @@ export default {
       }
       this.answered = true
       this.increment(isCorrect)
+      this.score()
     },
     answerClass(index) {
       let answerClass = ''

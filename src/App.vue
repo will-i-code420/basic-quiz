@@ -1,8 +1,9 @@
 <template>
   <div id="app">
     <Header
-    :numCorrect="numCorrect"
-    :numTotal="numTotal"
+      :numCorrect="numCorrect"
+      :numTotal="numTotal"
+      :totalScore="totalScore"
     />
     <b-container class="bv-example-row">
       <b-row>
@@ -12,6 +13,7 @@
             :currentQuestion="questions[index]"
             :next="next"
             :increment="increment"
+            :score="score"
           />
         </b-col>
       </b-row>
@@ -34,7 +36,8 @@ export default {
       questions: [],
       index: 0,
       numCorrect: 0,
-      numTotal: 0
+      numTotal: 0,
+      totalScore: 0
     }
   },
   methods: {
@@ -46,6 +49,9 @@ export default {
         this.numCorrect++
       }
       this.numTotal++
+    },
+    score() {
+      this.totalScore = ( this.numCorrect / this.numTotal ) * 100
     }
   },
   mounted: function() {
@@ -69,6 +75,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
