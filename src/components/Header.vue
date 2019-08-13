@@ -29,13 +29,19 @@ export default {
 
 <style scoped>
   .header-container {
-    background-color: green
+    background-color: hsl(195, 100%, 27%);
   }
+
+  .title, .score {
+    color: white;
+  }
+  
   .title {
     font-size: 28px;
     margin-bottom: 30px;
   }
   .score {
+    font-size: 20px;
     margin-bottom: 40px;
   }
 </style>

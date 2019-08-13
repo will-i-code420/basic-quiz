@@ -18,18 +18,23 @@
         </b-col>
       </b-row>
     </b-container>
+    <GameOver
+    :totalScore="totalScore"
+    />
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue'
 import QuestionBox from './components/QuestionBox.vue'
+import GameOver from './components/GameOver.vue'
 
 export default {
   name: 'app',
   components: {
     Header,
-    QuestionBox
+    QuestionBox,
+    GameOver
   },
   data() {
     return {
@@ -61,7 +66,7 @@ export default {
     .then((response) => {
       return response.json()
     })
-    .then ((jsonData) => {
+    .then((jsonData) => {
       this.questions = jsonData.results
     })
   }
@@ -75,5 +80,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background-image: linear-gradient(hsl(210, 28%, 52%), hsl(210, 13%, 50%));
 }
 </style>
