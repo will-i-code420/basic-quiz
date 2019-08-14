@@ -13,14 +13,16 @@
             :next="next"
             :increment="increment"
             :score="score"
+            :gameStatus="gameStatus"
+            :totalScore="totalScore"
+          />
+          <GameOver
+          v-else-if="gameStatus"
+          :totalScore="totalScore"
           />
         </b-col>
       </b-row>
     </b-container>
-    <GameOver
-    v-if="gameStatus"
-    :totalScore="totalScore"
-    />
   </div>
 </template>
 
@@ -48,7 +50,11 @@ export default {
   },
   methods: {
     next() {
-      return this.index++
+      if (this.numTotal == this.questions.length) {
+        return
+      } else {
+        return this.index++
+      }
     },
     increment(isCorrect) {
       if (isCorrect) {
@@ -86,7 +92,7 @@ export default {
       })
     }
   },
-  created () {
+  created() {
     this.getQuestions()
   }
 }

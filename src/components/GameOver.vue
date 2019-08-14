@@ -1,8 +1,8 @@
 <template>
-  <b-model id="game-over" centered title="Game Over">
+  <b-modal id="game-over" centered title="Game Over">
     <p>Congratulations! You got a {{ totalScore }}.</p>
     <p :class="scoreClass()">Your rank: {{ rank }}</p>
-  </b-model>
+  </b-modal>
 </template>
 
 <script>
@@ -24,6 +24,15 @@ export default {
       } else {
         this.rank ="Beginner: Start watching some movies!!!!"
       }
+    },
+    showModal() {
+      this.$refs['game-over'].show()
+    },
+    hideModal() {
+      this.$refs['game-over'].hide()
+    },
+    mounted() {
+      this.showModal()
     }
   }
 }
