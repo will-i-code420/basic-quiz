@@ -3,7 +3,6 @@
     <Header
       :numCorrect="numCorrect"
       :numTotal="numTotal"
-      :totalScore="totalScore"
     />
     <b-container class="bv-example-row">
       <b-row>
@@ -19,6 +18,7 @@
       </b-row>
     </b-container>
     <GameOver
+    v-if="gameStatus"
     :totalScore="totalScore"
     />
   </div>
@@ -42,7 +42,8 @@ export default {
       index: 0,
       numCorrect: 0,
       numTotal: 0,
-      totalScore: 0
+      totalScore: 0,
+      gameStatus: false
     }
   },
   methods: {
@@ -54,21 +55,39 @@ export default {
         this.numCorrect++
       }
       this.numTotal++
+      this.gameOver()
     },
     score() {
       this.totalScore = ( this.numCorrect / this.numTotal ) * 100
+    },
+    gameOver() {
+      if (this.numTotal == this.questions.length) {
+        this.gameStatus = true
+      }
+    },
+    newGame() {
+      this.questions = []
+      this.index = 0
+      this.numCorrect = 0
+      this.numTotal = 0
+      this.totalScore = 0
+      this.gameStatus = false
+      this.getQuestions()
+    },
+    getQuestions() {
+      fetch('https://opentdb.com/api.php?amount=10&category=11&difficulty=easy&type=multiple', {
+        method: 'get'
+      })
+      .then((response) => {
+        return response.json()
+      })
+      .then((jsonData) => {
+        this.questions = jsonData.results
+      })
     }
   },
-  mounted: function() {
-    fetch('https://opentdb.com/api.php?amount=10&category=11&difficulty=easy&type=multiple', {
-      method: 'get'
-    })
-    .then((response) => {
-      return response.json()
-    })
-    .then((jsonData) => {
-      this.questions = jsonData.results
-    })
+  created () {
+    this.getQuestions()
   }
 }
 </script>

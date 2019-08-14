@@ -6,7 +6,6 @@
       </b-row>
       <b-row class="score" align-h="between">
         <b-col cols="4">Counter: {{ numCorrect }}/{{ numTotal }}</b-col>
-        <b-col cols="4">Score: {{ totalScore }}%</b-col>
       </b-row>
     </b-container>
   </div>
@@ -16,8 +15,7 @@
 export default {
   props: [
     'numCorrect',
-    'numTotal',
-    'totalScore'
+    'numTotal'
   ],
   data() {
     return {}
@@ -35,7 +33,7 @@ export default {
   .title, .score {
     color: white;
   }
-  
+
   .title {
     font-size: 28px;
     margin-bottom: 30px;
