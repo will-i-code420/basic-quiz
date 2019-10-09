@@ -4,54 +4,65 @@
       :numCorrect="numCorrect"
       :numTotal="numTotal"
     />
-    <b-container class="bv-example-row">
+    <GameStart
+    v-if="gameStart"
+    :categories="categories"
+    :getQuestions="getQuestions"
+    />
+    <b-container>
       <b-row>
         <b-col sm="6" offset="3">
           <QuestionBox
-            v-if="questions.length"
+            v-if="gamePlaying"
             :currentQuestion="questions[index]"
             :next="next"
             :increment="increment"
             :score="score"
-            :gameStatus="gameStatus"
             :totalScore="totalScore"
-          />
-          <GameOver
-          v-else-if="gameStatus"
-          :totalScore="totalScore"
           />
         </b-col>
       </b-row>
     </b-container>
+    <GameOver
+    v-if="gameOver"
+    :totalScore="totalScore"
+    :newGame="newGame"
+    />
   </div>
 </template>
 
 <script>
-import Header from './components/Header.vue'
-import QuestionBox from './components/QuestionBox.vue'
-import GameOver from './components/GameOver.vue'
+import Header from './components/Header'
+import QuestionBox from './components/QuestionBox'
+import GameOver from './components/GameOver'
+import GameStart from './components/GameStart'
 
 export default {
   name: 'app',
   components: {
     Header,
     QuestionBox,
-    GameOver
+    GameOver,
+    GameStart
   },
   data() {
     return {
       questions: [],
+      categories: [],
       index: 0,
       numCorrect: 0,
       numTotal: 0,
       totalScore: 0,
-      gameStatus: false
+      gameStart: true,
+      gamePlaying: false,
+      gameOver: false
     }
   },
   methods: {
     next() {
       if (this.numTotal == this.questions.length) {
-        return
+        this.gamePlaying = false
+        this.gameOver = true
       } else {
         return this.index++
       }
@@ -61,15 +72,9 @@ export default {
         this.numCorrect++
       }
       this.numTotal++
-      this.gameOver()
     },
     score() {
       this.totalScore = ( this.numCorrect / this.numTotal ) * 100
-    },
-    gameOver() {
-      if (this.numTotal == this.questions.length) {
-        this.gameStatus = true
-      }
     },
     newGame() {
       this.questions = []
@@ -77,23 +82,35 @@ export default {
       this.numCorrect = 0
       this.numTotal = 0
       this.totalScore = 0
-      this.gameStatus = false
-      this.getQuestions()
+      this.gameOver = false
+      this.gameStart = true
+      this.getCategories()
     },
-    getQuestions() {
-      fetch('https://opentdb.com/api.php?amount=10&category=11&difficulty=easy&type=multiple', {
+    getQuestions(category, numOfQuestions, gameDifficulty) {
+      fetch(`https://opentdb.com/api.php?amount=${numOfQuestions}&category=${category}&difficulty=${gameDifficulty}&type=multiple`, {
         method: 'get'
       })
       .then((response) => {
         return response.json()
       })
       .then((jsonData) => {
+        this.gameStart = false
+        this.gamePlaying = true
         this.questions = jsonData.results
+      })
+    },
+    getCategories() {
+      fetch('https://opentdb.com/api_category.php', {
+        method: 'get'
+      }).then(response => {
+        return response.json()
+      }).then(jsonData => {
+        this.categories = jsonData.trivia_categories
       })
     }
   },
-  created() {
-    this.getQuestions()
+  async created() {
+    await this.getCategories()
   }
 }
 </script>

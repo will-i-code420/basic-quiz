@@ -13,15 +13,10 @@
 
 <script>
 export default {
-  props: [
-    'numCorrect',
-    'numTotal'
-  ],
-  data() {
-    return {}
-  },
-  methods: {
-  },
+  props: {
+    numCorrect: Number,
+    numTotal: Number
+  }
 }
 </script>
 

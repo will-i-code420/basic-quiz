@@ -1,39 +1,18 @@
 <template>
-  <b-modal id="game-over" centered title="Game Over">
-    <p>Congratulations! You got a {{ totalScore }}.</p>
-    <p :class="scoreClass()">Your rank: {{ rank }}</p>
-  </b-modal>
+  <div class="game-over">
+    <h1>Game Over Screen</h1>
+    <p>{{ totalScore }}</p>
+    <b-button variant="primary" @click="newGame">Play Again</b-button>
+  </div>
 </template>
 
 <script>
 export default {
-  props: [
-    'totalScore'
-  ],
-  data() {
-    return {
-      rank: ''
-    }
+  props: {
+    totalScore: Number,
+    newGame: Function
   },
   methods: {
-    scoreClass() {
-      if (this.totalScore > 85) {
-        this.rank = "Expert: You know your stuff!!"
-      } else if (this.totalScore > 70) {
-        this.rank = "Medicore: You have a little learning to do!"
-      } else {
-        this.rank ="Beginner: Start watching some movies!!!!"
-      }
-    },
-    showModal() {
-      this.$refs['game-over'].show()
-    },
-    hideModal() {
-      this.$refs['game-over'].hide()
-    },
-    mounted() {
-      this.showModal()
-    }
   }
 }
 </script>
