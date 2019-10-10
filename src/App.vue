@@ -113,7 +113,8 @@ export default {
       }).then(response => {
         return response.json()
       }).then(jsonData => {
-        this.categories = jsonData.trivia_categories
+        let unsorted = jsonData.trivia_categories
+        this.categories = unsorted.sort((a, b) => {return a.name > b.name})
       })
     }
   },
