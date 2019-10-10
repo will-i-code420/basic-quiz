@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <Header
-      :numCorrect="numCorrect"
       :numTotal="numTotal"
+      :totalQuestions="questions.length"
     />
     <GameStart
     v-if="gameStart"
@@ -19,6 +19,8 @@
             :increment="increment"
             :score="score"
             :totalScore="totalScore"
+            :totalQuestions="questions.length"
+            :numTotal="numTotal"
           />
         </b-col>
       </b-row>
@@ -26,6 +28,8 @@
     <GameOver
     v-if="gameOver"
     :totalScore="totalScore"
+    :numTotal="numTotal"
+    :numCorrect="numCorrect"
     :newGame="newGame"
     />
   </div>

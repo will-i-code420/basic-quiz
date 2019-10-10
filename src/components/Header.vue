@@ -4,8 +4,10 @@
       <b-row class="title" align-h="center">
         <b-col cols="4"><strong>Super Fun Quiz Time</strong></b-col>
       </b-row>
-      <b-row class="score" align-h="between">
-        <b-col cols="4">Counter: {{ numCorrect }}/{{ numTotal }}</b-col>
+      <b-row class="score" align-h="center">
+        <b-col cols="4">
+          <b-progress v-if="totalQuestions > 0" :value="numTotal" :max="totalQuestions" class="mb-3"></b-progress>
+        </b-col>
       </b-row>
     </b-container>
   </div>
@@ -14,8 +16,8 @@
 <script>
 export default {
   props: {
-    numCorrect: Number,
-    numTotal: Number
+    numTotal: Number,
+    totalQuestions: Number
   }
 }
 </script>

@@ -1,12 +1,12 @@
 <template>
   <div class="game-start">
-    <h1>Select A Catagory, Difficulty Level, and Question Amount to Begin</h1>
+    <h1 class="game-start-title">Pick Your Poison</h1>
       <b-card-group deck v-for="row in mapCategories" :key="row.id" class="category-cards">
         <b-card v-for="category in row" :key="category.id" :title="category.name">
           <b-card-text>
             <label>Select Amount Of Questions</label>
             <b-form-input v-model="questionAmount[category.id]" type="range" min="5" max="50"></b-form-input>
-            <span>Selected {{ questionAmount[category.id] }} Questions</span>
+            <span>{{ questionAmount[category.id] }} Question Quiz</span>
             <hr>
             <label>Select Difficulty Level:</label>
             <b-form-radio-group
@@ -43,7 +43,7 @@ export default {
     mapCategories() {
       let sortedCategories = [...this.categories]
       return sortedCategories.reduce((a, b, i) => {
-        if (i % 4 === 0) a.push([])
+        if (i % 3 === 0) a.push([])
         a[a.length - 1].push(b)
         return a
       }, [])
