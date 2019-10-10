@@ -15,7 +15,7 @@
             ></b-form-radio-group>
           </b-card-text>
           <template v-slot:footer>
-            <b-button pill variant="primary" @click="startGame(category.id)">Start Game</b-button>
+            <b-button pill variant="primary" @click="startGame(category.id, category.name)">Start Game</b-button>
           </template>
         </b-card>
       </b-card-group>
@@ -50,11 +50,11 @@ export default {
     }
   },
   methods: {
-    async startGame(category) {
+    async startGame(categoryId, categoryName) {
       try {
-        let numOfQuestions = await Number(this.filterSelection(this.questionAmount, category))
-        let gameDifficulty = await this.filterSelection(this.difficulty, category).join()
-        await this.getQuestions(category, numOfQuestions, gameDifficulty)
+        let numOfQuestions = await Number(this.filterSelection(this.questionAmount, categoryId))
+        let gameDifficulty = await this.filterSelection(this.difficulty, categoryId).join()
+        await this.getQuestions(categoryId, numOfQuestions, gameDifficulty, categoryName)
       } catch (err) {
         alert(`Error: ${err}`)
       }

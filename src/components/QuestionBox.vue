@@ -95,6 +95,9 @@ export default {
 </script>
 
 <style scoped>
+.questionBox-container {
+  margin-top: 20px;
+}
   .list-group {
     margin-bottom: 15px;
   }

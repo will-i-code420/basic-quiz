@@ -2,10 +2,11 @@
   <div class="header-container">
     <b-container class="header-row">
       <b-row class="title" align-h="center">
-        <b-col cols="4"><strong>Super Fun Quiz Time</strong></b-col>
+        <b-col v-if="!categoryName" cols="6"><h1>Super Fun Quiz Time</h1></b-col>
+        <b-col v-else cols="6"><h1>{{ categoryName }} Quiz</h1></b-col>
       </b-row>
       <b-row class="score" align-h="center">
-        <b-col cols="4">
+        <b-col cols="6">
           <b-progress v-if="totalQuestions > 0" :value="numTotal" :max="totalQuestions" variant="warning" class="mb-3"></b-progress>
         </b-col>
       </b-row>
@@ -17,7 +18,8 @@
 export default {
   props: {
     numTotal: Number,
-    totalQuestions: Number
+    totalQuestions: Number,
+    categoryName: String
   }
 }
 </script>
@@ -29,8 +31,8 @@ export default {
 
   .title {
     color: white;
-    font-size: 28px;
-    margin-bottom: 30px;
+    padding-top: 10px;
+    margin-bottom: 20px;
   }
 
   .score {

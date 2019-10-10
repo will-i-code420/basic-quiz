@@ -3,6 +3,7 @@
     <Header
       :numTotal="numTotal"
       :totalQuestions="questions.length"
+      :categoryName="categoryName"
     />
     <GameStart
     v-if="gameStart"
@@ -53,6 +54,7 @@ export default {
     return {
       questions: [],
       categories: [],
+      categoryName: '',
       index: 0,
       numCorrect: 0,
       numTotal: 0,
@@ -81,6 +83,7 @@ export default {
       this.totalScore = ( this.numCorrect / this.numTotal ) * 100
     },
     newGame() {
+      this.categoryName = ''
       this.questions = []
       this.index = 0
       this.numCorrect = 0
@@ -90,8 +93,9 @@ export default {
       this.gameStart = true
       this.getCategories()
     },
-    getQuestions(category, numOfQuestions, gameDifficulty) {
-      fetch(`https://opentdb.com/api.php?amount=${numOfQuestions}&category=${category}&difficulty=${gameDifficulty}&type=multiple`, {
+    getQuestions(categoryId, numOfQuestions, gameDifficulty, categoryName) {
+      this.categoryName = categoryName
+      fetch(`https://opentdb.com/api.php?amount=${numOfQuestions}&category=${categoryId}&difficulty=${gameDifficulty}&type=multiple`, {
         method: 'get'
       })
       .then((response) => {
