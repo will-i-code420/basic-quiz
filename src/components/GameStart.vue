@@ -4,9 +4,9 @@
       <b-card-group deck v-for="row in mapCategories" :key="row.id" class="category-cards">
         <b-card v-for="category in row" :key="category.id" :title="category.name">
           <b-card-text>
-            <label>Select Amount Of Questions</label>
-            <b-form-input v-model="questionAmount[category.id]" type="range" min="5" max="50"></b-form-input>
-            <span v-if="questionAmount[category.id] > 4">{{ questionAmount[category.id] }} Question Quiz</span>
+            <label>Select Question Amount:</label>
+            <b-form-input v-b-tooltip.hover title="Between 5 and 50" v-model="questionAmount[category.id]" type="range" min="5" max="50"></b-form-input>
+            <span v-if="questionAmount[category.id] > 4">{{ questionAmount[category.id] }} Questions</span>
             <hr>
             <label>Select Difficulty Level:</label>
             <b-form-radio-group
