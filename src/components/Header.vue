@@ -6,7 +6,7 @@
       </b-row>
       <b-row class="score" align-h="center">
         <b-col cols="4">
-          <b-progress v-if="totalQuestions > 0" :value="numTotal" :max="totalQuestions" class="mb-3"></b-progress>
+          <b-progress v-if="totalQuestions > 0" :value="numTotal" :max="totalQuestions" variant="warning" class="mb-3"></b-progress>
         </b-col>
       </b-row>
     </b-container>
@@ -27,16 +27,13 @@ export default {
     background-color: hsl(195, 100%, 27%);
   }
 
-  .title, .score {
-    color: white;
-  }
-
   .title {
+    color: white;
     font-size: 28px;
     margin-bottom: 30px;
   }
+
   .score {
-    font-size: 20px;
-    margin-bottom: 40px;
+    padding-bottom: 10px;
   }
 </style>

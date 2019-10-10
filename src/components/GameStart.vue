@@ -15,7 +15,7 @@
             ></b-form-radio-group>
           </b-card-text>
           <template v-slot:footer>
-            <b-button variant="primary" @click="startGame(category.id)">Start Game</b-button>
+            <b-button pill variant="primary" @click="startGame(category.id)">Start Game</b-button>
           </template>
         </b-card>
       </b-card-group>

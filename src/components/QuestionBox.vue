@@ -13,9 +13,9 @@
         </b-list-group-item>
       </b-list-group>
 
-      <b-button variant="primary" @click="submitAnswer" :disabled="selectedIndex === null || answered">Submit</b-button>
-      <b-button v-if="numTotal < totalQuestions" @click="next" variant="success">Next Question</b-button>
-      <b-button v-else @click="next" variant="success">Get Score</b-button>
+      <b-button pill v-if="numTotal < totalQuestions" variant="primary" @click="submitAnswer" :disabled="selectedIndex === null || answered">Submit</b-button>
+      <b-button pill v-if="numTotal < totalQuestions" @click="next" variant="success">Next Question</b-button>
+      <b-button pill v-else @click="next" variant="success">Get Score</b-button>
     </b-jumbotron>
   </div>
 </template>
