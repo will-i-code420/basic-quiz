@@ -6,7 +6,7 @@
           <b-card-text>
             <label>Select Amount Of Questions</label>
             <b-form-input v-model="questionAmount[category.id]" type="range" min="5" max="50"></b-form-input>
-            <span>{{ questionAmount[category.id] }} Question Quiz</span>
+            <span v-if="questionAmount > 4">{{ questionAmount[category.id] }} Question Quiz</span>
             <hr>
             <label>Select Difficulty Level:</label>
             <b-form-radio-group
