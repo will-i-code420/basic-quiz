@@ -42,8 +42,7 @@ export default {
   },
   computed: {
     answers() {
-      let answers = [...this.currentQuestion.incorrect_answers]
-      answers.push(this.currentQuestion.correct_answer)
+      let answers = [...this.currentQuestion.incorrect_answers, this.currentQuestion.correct_answer]
       answers = _.shuffle(answers)
       return answers
     }
