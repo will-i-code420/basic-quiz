@@ -1,7 +1,7 @@
 <template>
   <div class="questionBox-container">
-    <div class="timer" v-if="numTotal < totalQuestions">
-      <span>{{ minutes }}:{{ seconds }}</span>
+    <div class="timer-container" v-if="numTotal < totalQuestions">
+      <span class="timer-min">{{ minutes }}</span><span class="timer-col">:</span><span class="timer-sec">{{ seconds }}</span>
     </div>
     <b-jumbotron>
       <template slot="lead">
@@ -19,8 +19,8 @@
       <b-button pill v-if="numTotal < totalQuestions" variant="primary" @click="submitAnswer" :disabled="selectedIndex === null || answered">Submit</b-button>
       <b-button pill v-if="numTotal < totalQuestions" @click="next" variant="success" :disabled="!answered">Next Question</b-button>
       <b-button pill v-else @click="next" variant="success">Get Score</b-button>
-      <div class="timer-message">
-        {{ timerMessage }}
+      <div class="timer-message-container">
+        <span class="timer-message">{{ timerMessage }}</span>
       </div>
     </b-jumbotron>
   </div>
@@ -44,7 +44,7 @@ export default {
       correctIndex: null,
       shuffledAnswers: [],
       answered: false,
-      gameTimer: 10,
+      gameTimer: 90,
       timerMessage: '',
       countdown: null
     }
@@ -150,12 +150,28 @@ export default {
   margin-top: 20px;
   }
 
-  .timer {
+  .timer-container {
     height: 50px;
     width: 100px;
-    border: 2px solid white;
     margin: auto;
+  }
+
+  .timer-min,
+  .timer-col,
+  .timer-sec {
     color: white;
+  }
+
+  .timer-min {
+
+  }
+
+  .timer-col {
+
+  }
+
+  .timer-sec {
+
   }
 
   .list-group {
@@ -177,8 +193,10 @@ export default {
   .incorrect{
     background-color: red;
   }
+  .timer-message-container {
+    padding-top: 2rem;
+  }
   .timer-message {
-    padding-top: 1rem;
     color: red;
     font-size: 22px;
   }
