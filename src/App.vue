@@ -98,8 +98,8 @@ export default {
       fetch(`https://opentdb.com/api.php?amount=${numOfQuestions}&category=${categoryId}&difficulty=${gameDifficulty}&type=multiple`, {
         method: 'get'
       })
-      .then((response) => {
-        return response.json()
+      .then((res) => {
+        return res.json()
       })
       .then((jsonData) => {
         this.gameStart = false
@@ -110,8 +110,8 @@ export default {
     getCategories() {
       fetch('https://opentdb.com/api_category.php', {
         method: 'get'
-      }).then(response => {
-        return response.json()
+      }).then(res => {
+        return res.json()
       }).then(jsonData => {
         let unsorted = jsonData.trivia_categories
         this.categories = unsorted.sort((a, b) => {return a.name > b.name})

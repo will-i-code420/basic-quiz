@@ -4,18 +4,37 @@
       <b-card-group deck v-for="row in mapCategories" :key="row.id" class="category-cards">
         <b-card v-for="category in row" :key="category.id" :title="category.name">
           <b-card-text>
-            <label>Select Question Amount:</label>
-            <b-form-input v-b-tooltip.hover title="Between 5 and 50" v-model="questionAmount[category.id]" type="range" min="5" max="50"></b-form-input>
-            <span v-if="questionAmount[category.id] > 4">{{ questionAmount[category.id] }} Questions</span>
-            <hr>
-            <label>Select Difficulty Level:</label>
-            <b-form-radio-group
-            v-model="difficulty[category.id]"
-            :options="options"
-            ></b-form-radio-group>
+            <label>Select Difficulty Level:
+              <b-form-radio-group
+                :name="category.name"
+                @change="setGame(category.id, $event)"
+              >
+              <b-form-radio value='easy'>
+                Easy
+              </b-form-radio>
+              <b-form-radio value='medium'>
+                Medium
+              </b-form-radio>
+              <b-form-radio value='hard'>
+                Hard
+              </b-form-radio>
+              </b-form-radio-group>
+            </label>
+            <label v-if="questionMax">Select Question Amount:
+              <b-form-input
+                :name="category.name"
+                type="range"
+                min="5"
+                :max="questionMax"
+                number
+              >
+              </b-form-input>
+            </label>
           </b-card-text>
           <template v-slot:footer>
-            <b-button pill variant="primary" @click="startGame(category.id, category.name)">Start Game</b-button>
+            <b-button pill variant="primary" @click="startGame">
+              Start Game
+            </b-button>
           </template>
         </b-card>
       </b-card-group>
@@ -30,8 +49,9 @@ export default {
   },
   data() {
     return {
-      questionAmount: {},
-      difficulty: {},
+      selectedCategory: '',
+      selectedDifficulty: '',
+      questionMax: '',
       options: [
         { text: 'Easy', value: 'easy'},
         { text: 'Medium', value: 'medium'},
@@ -66,7 +86,34 @@ export default {
       }).map(key => {
         return obj[key]
       })
+      window.console.log(itemsToFilter)
       return itemsToFilter
+    },
+    setGame(id, difficulty) {
+      this.selectedCategory = id
+      this.selectedDifficulty = difficulty
+      this.getNumberOfQuestions()
+    },
+    async getNumberOfQuestions() {
+      const questionQuery = await fetch(`https://opentdb.com/api_count.php?category=${this.selectedCategory}`, {
+        method: 'get'
+      }).then(res => {
+        return res.json()
+      }).then(jsonData => {
+        return jsonData.category_question_count
+      })
+      window.console.log(questionQuery)
+      switch(this.selectedDifficulty) {
+        case 'easy':
+        this.questionMax = questionQuery.total_easy_question_count
+        break;
+        case 'medium':
+        this.questionMax = questionQuery.total_medium_question_count
+        break;
+        case 'hard':
+        this.questionMax = questionQuery.total_hard_question_count
+        break;
+      }
     }
   }
 }
