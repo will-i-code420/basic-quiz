@@ -8,7 +8,7 @@
     <GameStart
     v-if="gameStart"
     :categories="categories"
-    :getQuestions="getQuestions"
+    @start-game="getQuestions"
     />
     <b-container>
       <b-row>

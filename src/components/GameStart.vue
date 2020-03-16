@@ -33,7 +33,7 @@
             </label>
           </b-card-text>
           <template v-slot:footer>
-            <b-button pill variant="primary" @click="startGame">
+            <b-button pill variant="primary" @click="startGame(category.name)">
               Start Game
             </b-button>
           </template>
@@ -45,8 +45,7 @@
 <script>
 export default {
   props: {
-    categories: Array,
-    getQuestions: Function
+    categories: Array
   },
   data() {
     return {
@@ -72,24 +71,12 @@ export default {
     }
   },
   methods: {
-    async startGame(categoryId, categoryName) {
+    async startGame(name) {
       try {
-        let numOfQuestions = await Number(this.filterSelection(this.questionAmount, categoryId))
-        let gameDifficulty = await this.filterSelection(this.difficulty, categoryId).join()
-        await this.getQuestions(categoryId, numOfQuestions, gameDifficulty, categoryName)
+        await this.$emit('start-game', this.selectedCategory, this.selectedQuestionAmt, this.selectedDifficulty, name)
       } catch (err) {
         alert(`Error: ${err}`)
       }
-    },
-    filterSelection(obj, value) {
-      let itemsToFilter = obj
-      itemsToFilter = Object.keys(obj).filter(key => {
-        return obj[key] == obj[value]
-      }).map(key => {
-        return obj[key]
-      })
-      window.console.log(itemsToFilter)
-      return itemsToFilter
     },
     setGame(id, difficulty) {
       this.selectedCategory = id
@@ -105,7 +92,6 @@ export default {
       }).then(jsonData => {
         return jsonData.category_question_count
       })
-      window.console.log(questionQuery)
       switch(this.selectedDifficulty) {
         case 'easy':
         this.questionMax = questionQuery.total_easy_question_count
