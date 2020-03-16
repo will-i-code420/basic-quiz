@@ -20,8 +20,9 @@
               </b-form-radio>
               </b-form-radio-group>
             </label>
-            <label v-if="questionMax">Select Question Amount:
+            <label v-if="category.id === selectedCategory">Select Question Amount:
               <b-form-input
+                v-model="selectedQuestionAmt"
                 :name="category.name"
                 type="range"
                 min="5"
@@ -51,6 +52,7 @@ export default {
     return {
       selectedCategory: '',
       selectedDifficulty: '',
+      selectedQuestionAmt: 5,
       questionMax: '',
       options: [
         { text: 'Easy', value: 'easy'},
@@ -92,6 +94,7 @@ export default {
     setGame(id, difficulty) {
       this.selectedCategory = id
       this.selectedDifficulty = difficulty
+      this.selectedQuestionAmt = 5
       this.getNumberOfQuestions()
     },
     async getNumberOfQuestions() {
