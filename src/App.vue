@@ -22,6 +22,7 @@
             :totalScore="totalScore"
             :totalQuestions="questions.length"
             :numTotal="numTotal"
+            :gameTimer="gameTimer"
           />
         </b-col>
       </b-row>
@@ -55,6 +56,7 @@ export default {
       questions: [],
       categories: [],
       categoryName: '',
+      gameTimer: 0,
       index: 0,
       numCorrect: 0,
       numTotal: 0,
@@ -95,6 +97,17 @@ export default {
     },
     getQuestions(categoryId, numOfQuestions, gameDifficulty, categoryName) {
       this.categoryName = categoryName
+      switch(gameDifficulty) {
+        case 'easy':
+          this.gameTimer = 45
+        break;
+        case 'medium':
+          this.gameTimer = 30
+        break;
+        case 'hard':
+          this.gameTimer = 15
+        break;
+      }
       fetch(`https://opentdb.com/api.php?amount=${numOfQuestions}&category=${categoryId}&difficulty=${gameDifficulty}&type=multiple`, {
         method: 'get'
       })

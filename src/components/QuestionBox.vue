@@ -36,7 +36,8 @@ export default {
     increment: Function,
     score: Function,
     totalQuestions: Number,
-    numTotal: Number
+    numTotal: Number,
+    gameTimer: Number
   },
   data() {
     return {
@@ -44,7 +45,6 @@ export default {
       correctIndex: null,
       shuffledAnswers: [],
       answered: false,
-      gameTimer: 90,
       timerMessage: '',
       countdown: null
     }
